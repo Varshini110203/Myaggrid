@@ -65,7 +65,7 @@ export default function App() {
 
   const showAllRows = () => {
     gridRef.current.api.stopEditing();
-    console.table(rowData); debugger;
+    console.table(rowData); 
   };
 
   const onSearch = (e) => {
