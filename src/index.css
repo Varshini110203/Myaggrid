@@ -1,0 +1,6 @@
+
+.ag-theme-alpine .ag-header-cell,
+.ag-theme-alpine .ag-cell {
+  border-right: 1px solid black; 
+  border-left: 1px solid black;
+}
