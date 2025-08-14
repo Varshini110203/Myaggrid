@@ -67,7 +67,7 @@ export default function App() {
 
   const showAllRows = () => {
     gridRef.current.api.stopEditing();
-    console.table(rowData); 
+    console.table(quiFilter); 
   };
 
   // const onSearch = (e) => {
