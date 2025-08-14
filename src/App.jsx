@@ -9,6 +9,8 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 export default function App() {
   const gridRef = useRef();
 
+  const [search, setSearch] = useState("");
+
   const [rowData, setRowData] = useState([
     { id: 1, name: "Varshu", age: 22, city: "Chennai" },
     { id: 2, name: "Mee", age: 23, city: "KK" },
@@ -68,14 +70,21 @@ export default function App() {
     console.table(rowData); 
   };
 
-  const onSearch = (e) => {
-    if (gridRef.current) {
-      gridRef.current.api.setGridOption(
-        "quickFilterText",
-        e.target.value.trim()
-      );
-    }
-  };
+  // const onSearch = (e) => {
+  //   if (gridRef.current) {
+  //     gridRef.current.api.setGridOption(
+  //       "quickFilterText",
+  //       e.target.value.trim()
+  //     );
+  //   }
+  // };
+
+  const quiFilter = useMemo(() => {
+      if (!search.trim()) return rowData;
+      return rowData.filter((row) => 
+         row.name.toLowerCase().includes(search.toLowerCase()) ||
+        row.city.toLowerCase().includes(search.toLowerCase()))
+    },[search,rowData])
 
   const defaultColDef = useMemo(
     () => ({
@@ -202,7 +211,8 @@ export default function App() {
         <input
           type="text"
           placeholder="Search..."
-          onChange={onSearch}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           style={{
             padding: "6px 10px",
             borderRadius: "4px",
@@ -223,7 +233,7 @@ export default function App() {
       >
         <AgGridReact
           ref={gridRef}
-          rowData={rowData}
+          rowData={quiFilter}
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}
           domLayout="autoHeight"
